@@ -19,3 +19,28 @@ https://www.mockaroo.com/
     [(1,), (2,), (3,), ...]
     >>> Entry.objects.values_list('id', flat=True).order_by('id')
     [1, 2, 3, ...]
+### lookups
+- exact , iexact (case insensitive)
+- contains , icontains
+- lt , lte , gt , gte
+- startswith , istartswith , endswith , iendswith
+- in
+### aggregations
+    >>> from django.db.models import Avg, Sum, Max, Min
+    >>> User.objects.aggregate(Avg('score'))
+    {'score__avg': 9.8}
+    >>> User.objects.aggregate(average_score=Avg('score'))
+    {'average_score': 9.8}
+### F objects and Q objects
+    from django.db import models
+
+    class Student(models.Model):
+        name = models.CharField(max_length=10)
+        math_score = models.IntegerField()
+        physics_score = models.IntegerField()
+    
+    >>> from django.db.models import F
+    >>> Student.objects.filter(math_score__gt=F('physics_score')) # or 
+    #>>> physics_score = F('physics_score')
+    #>>> Student.objects.filter(math_score__gt=physics_score)
+    <QuerySet [...]>
