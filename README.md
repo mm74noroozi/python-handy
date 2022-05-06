@@ -99,7 +99,7 @@ https://www.mockaroo.com/
         ).values_list('name', flat=True)
         return HttpResponse('\n'.join(map(str, books)))
 ## Django templates
-base html
+base template
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -125,7 +125,7 @@ base html
 </body>
 </html>
 ```
-
+child template
 ```
 {% extends "base.html" %}
 
