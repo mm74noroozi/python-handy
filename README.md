@@ -31,7 +31,7 @@ https://www.mockaroo.com/
     {'score__avg': 9.8}
     >>> User.objects.aggregate(average_score=Avg('score'))
     {'average_score': 9.8}
-### F objects and Q objects
+### F objects [using for representing a column]
     from django.db import models
 
     class Student(models.Model):
@@ -40,7 +40,25 @@ https://www.mockaroo.com/
         physics_score = models.IntegerField()
     
     >>> from django.db.models import F
-    >>> Student.objects.filter(math_score__gt=F('physics_score')) # or 
-    #>>> physics_score = F('physics_score')
-    #>>> Student.objects.filter(math_score__gt=physics_score)
+    >>> physics_score = F('physics_score')
+    >>> Student.objects.filter(math_score__gt=physics_score)
     <QuerySet [...]>
+    >>> Student.objects.filter(math_score__gt=F('physics_score')*2)
+    <QuerySet [...]>
+### Q objects [using for logical operations in query]
+    >>> conditions = Q(math_score__gte=10) | Q(physics_score__gte=10)
+    >>> Student.objects.filter(conditions)
+    <QuerySet [...]>
+- & : and
+- | : or
+- ~ : not
+*equivalent queries*
+
+        >>> Student.objects.exclude(math_score__in=[10, 13])
+        <QuerySet [...]>
+
+        >>> Student.objects.filter(~Q(math_score=10) & ~Q(math_score=13))
+        <QuerySet [...]>
+
+        >>> Student.objects.exclude(math_score=10).exclude(math_score=13)
+        <QuerySet [...]>
