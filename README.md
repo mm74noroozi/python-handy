@@ -52,13 +52,10 @@ https://www.mockaroo.com/
 - & : and
 - | : or
 - ~ : not
-*equivalent queries*
-
-        >>> Student.objects.exclude(math_score__in=[10, 13])
-        <QuerySet [...]>
-
-        >>> Student.objects.filter(~Q(math_score=10) & ~Q(math_score=13))
-        <QuerySet [...]>
-
-        >>> Student.objects.exclude(math_score=10).exclude(math_score=13)
-        <QuerySet [...]>
+#### equivalent queries
+    >>> Student.objects.exclude(math_score__in=[10, 13])
+    <QuerySet [...]>
+    >>> Student.objects.filter(~Q(math_score=10) & ~Q(math_score=13))
+    <QuerySet [...]>
+    >>> Student.objects.exclude(math_score=10).exclude(math_score=13)
+    <QuerySet [...]>
