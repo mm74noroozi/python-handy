@@ -11,3 +11,11 @@ with alot of!!! data types first name lastname ....
 https://www.mockaroo.com/
 ## Django create bash profile
     python manage.py shell -i ipython
+## Django queryset hacks
+    >>> Article.objects.all().values("title")
+    [{'title': 'Article 0'}, {'title': 'Article 1'}, {'title': 'Article 2'}]
+    
+    >>> Entry.objects.values_list('id').order_by('id')
+    [(1,), (2,), (3,), ...]
+    >>> Entry.objects.values_list('id', flat=True).order_by('id')
+    [1, 2, 3, ...]
