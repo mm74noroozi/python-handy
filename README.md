@@ -138,4 +138,11 @@ child template
 {% endfor %}
 {% endblock %}
 ```
+## Django template filters
+    {{ value|lower }}
+    {{ value|length }} 
+    {{ value|filesizeformat }} 235.3MB
+    {{ value|truncatewords:2 }}  word1 word2 ...
+    {{ value|default:"empty" }}
+    {{ value|lower|truncatewords:2 }}
 
