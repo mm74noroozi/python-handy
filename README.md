@@ -98,5 +98,44 @@ https://www.mockaroo.com/
             price__gte=min_price, price__lte=max_price
         ).values_list('name', flat=True)
         return HttpResponse('\n'.join(map(str, books)))
+## Django templates
+base html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Home{% endblock %}</title>
+    <link rel="stylesheet" href="base.css">
+</head>
 
+<body>
+    <div id="navigation">
+        {% block navigation %}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/">Contact</a></li>
+            <li><a href="/">About us</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
+```
+
+```
+{% extends "base.html" %}
+
+{% block title %}Book List{% endblock %}
+
+{% block content %}
+{% for book in book_list %}
+    <h2>{{ book.title }}</h2>
+    <h3>{{ book.author }}</h3>
+{% endfor %}
+{% endblock %}
+```
 
