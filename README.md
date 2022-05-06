@@ -59,3 +59,44 @@ https://www.mockaroo.com/
     <QuerySet [...]>
     >>> Student.objects.exclude(math_score=10).exclude(math_score=13)
     <QuerySet [...]>
+## Django Manager
+    class Mobile(models.Model):
+        price = models.PositiveIntegerField(default=1000)
+        mobiles = models.Manager()
+
+    >>> Mobile.mobiles.all()
+    <QuerySet [<Mobile: some_mobile>, ...]>
+
+    >>> Mobile.objects.all()
+    ...
+    AttributeError: type object 'Mobile' has no attribute 'objects'
+    
+    
+    class MobileManager(models.Manager):
+    def most_popular_mobiles(self):
+        return self.filter(
+            condition1=..., 
+            condition2=..., 
+            condition3=..., 
+            condition4=..., 
+            condition5=..., 
+            ...
+        )
+
+    class Mobile(models.Model):
+        price = models.PositiveIntegerField(default=1000)
+        objects = MobileManager()
+## Django filter
+    # views.py
+    from django.http import HttpResponse
+    from .models import Book
+
+    def index(request):
+        min_price = request.GET.get('min_price')
+        max_price = request.GET.get('max_price')
+        books = Book.objects.filter(
+            price__gte=min_price, price__lte=max_price
+        ).values_list('name', flat=True)
+        return HttpResponse('\n'.join(map(str, books)))
+
+
