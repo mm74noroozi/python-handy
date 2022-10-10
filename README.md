@@ -145,4 +145,7 @@ child template
     {{ value|truncatewords:2 }}  word1 word2 ...
     {{ value|default:"empty" }}
     {{ value|lower|truncatewords:2 }}
-
+## python serve path
+```python
+python -m http.server
+```
