@@ -16,6 +16,6 @@ python -m websockets <uri>
 ```python
 import yaml
 
-data = yaml.load(fp,yml.SafeLoader)
-yaml.dump(data,new_fp,yml.SafeLoader)
+data = yaml.load(fp,yaml.SafeLoader)
+yaml.dump(data,new_fp,yaml.SafeLoader)
 ```
