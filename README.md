@@ -4,7 +4,7 @@
 python -m http.server
 ```
 ## leading zeros
-```ipython
-In [3]: str(1).zfill(2)
-Out[3]: '01'
+```python
+>f"{329:05d}"
+00329
 ```
