@@ -8,3 +8,7 @@ python -m http.server
 >f"{329:05d}"
 00329
 ```
+## websocket client
+```bash
+python -m websockets <uri>
+```
