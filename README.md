@@ -12,3 +12,10 @@ python -m http.server
 ```bash
 python -m websockets <uri>
 ```
+## PyYaml
+```python
+import yaml
+
+data = yaml.load(fp,yml.SafeLoader)
+yaml.dump(data,new_fp,yml.SafeLoader)
+```
