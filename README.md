@@ -1,6 +1,6 @@
 # python-handy
 ## python serve path
-```python
+```bash
 python -m http.server
 ```
 ## leading zeros
