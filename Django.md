@@ -12,13 +12,15 @@ https://www.mockaroo.com/
 ## Django create bash profile
     python manage.py shell -i ipython
 ## Django queryset hacks
-    >>> Article.objects.all().values("title")
-    [{'title': 'Article 0'}, {'title': 'Article 1'}, {'title': 'Article 2'}]
+```ipython
+>>> Article.objects.all().values("title")
+[{'title': 'Article 0'}, {'title': 'Article 1'}, {'title': 'Article 2'}]
     
-    >>> Entry.objects.values_list('id').order_by('id')
-    [(1,), (2,), (3,), ...]
-    >>> Entry.objects.values_list('id', flat=True).order_by('id')
-    [1, 2, 3, ...]
+>>> Entry.objects.values_list('id').order_by('id')
+[(1,), (2,), (3,), ...]
+>>> Entry.objects.values_list('id', flat=True).order_by('id')
+[1, 2, 3, ...]
+```
 ### lookups
 - exact , iexact (case insensitive)
 - contains , icontains
@@ -26,12 +28,15 @@ https://www.mockaroo.com/
 - startswith , istartswith , endswith , iendswith
 - in
 ### aggregations
+```ipython
     >>> from django.db.models import Avg, Sum, Max, Min
     >>> User.objects.aggregate(Avg('score'))
     {'score__avg': 9.8}
     >>> User.objects.aggregate(average_score=Avg('score'))
     {'average_score': 9.8}
+```
 ### F objects [using for representing a column]
+```ipython
     from django.db import models
 
     class Student(models.Model):
@@ -45,21 +50,27 @@ https://www.mockaroo.com/
     <QuerySet [...]>
     >>> Student.objects.filter(math_score__gt=F('physics_score')*2)
     <QuerySet [...]>
+```
 ### Q objects [using for logical operations in query]
+```ipython
     >>> conditions = Q(math_score__gte=10) | Q(physics_score__gte=10)
     >>> Student.objects.filter(conditions)
     <QuerySet [...]>
 - & : and
 - | : or
 - ~ : not
+```
 #### equivalent queries
+```ipython
     >>> Student.objects.exclude(math_score__in=[10, 13])
     <QuerySet [...]>
     >>> Student.objects.filter(~Q(math_score=10) & ~Q(math_score=13))
     <QuerySet [...]>
     >>> Student.objects.exclude(math_score=10).exclude(math_score=13)
     <QuerySet [...]>
+```
 ## Django Manager
+```ipython
     class Mobile(models.Model):
         price = models.PositiveIntegerField(default=1000)
         mobiles = models.Manager()
@@ -86,7 +97,9 @@ https://www.mockaroo.com/
     class Mobile(models.Model):
         price = models.PositiveIntegerField(default=1000)
         objects = MobileManager()
+```
 ## Django filter
+```python
     # views.py
     from django.http import HttpResponse
     from .models import Book
@@ -98,9 +111,10 @@ https://www.mockaroo.com/
             price__gte=min_price, price__lte=max_price
         ).values_list('name', flat=True)
         return HttpResponse('\n'.join(map(str, books)))
+```
 ## Django templates
 base template
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,7 +140,7 @@ base template
 </html>
 ```
 child template
-```
+```html
 {% extends "base.html" %}
 
 {% block title %}Book List{% endblock %}
