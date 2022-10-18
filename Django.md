@@ -145,3 +145,43 @@ child template
     {{ value|truncatewords:2 }}  word1 word2 ...
     {{ value|default:"empty" }}
     {{ value|lower|truncatewords:2 }}
+## Django Extend User + search manytomany field
+- models.py
+```python
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    interests = models.ManyToManyField("user_data.Interest",blank=True)
+```
+- admin.py
+```python
+@admin.register(Interest)
+class InterestAdmin(admin.ModelAdmin):
+    search_fields = ("name",)
+    
+
+@admin.register(User)
+class UserAdminExtended(UserAdmin):
+    autocomplete_fields = ['interests']
+    fieldsets = (
+        (None, {"fields": ("username", "password","interests")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
+```
+- settings.py
+```python
+AUTH_USER_MODEL = 'user_data.User'
+```
