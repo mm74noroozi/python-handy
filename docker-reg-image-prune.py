@@ -6,7 +6,7 @@ import functools
 s=session()
 
 username="homeca"
-password="MyHomeca2021"
+password="SECRET"
 host="http://container-registry.homeca.ir"
 auth=(username, password)
 
