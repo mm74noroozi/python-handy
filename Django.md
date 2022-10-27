@@ -199,3 +199,14 @@ class UserAdminExtended(UserAdmin):
 ```python
 AUTH_USER_MODEL = 'user_data.User'
 ```
+# Unit testing + upchecking
+some_app/tests.py
+```python
+from django.test import TestCase
+
+class UP_RUNNING(TestCase):
+    def test_homepage(self):
+        # url = reverse("whatever.views.whatever")
+        res = self.client.get("/")
+        self.assertEqual(res.status_code,200)
+```
