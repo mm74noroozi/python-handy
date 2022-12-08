@@ -5,13 +5,17 @@ python -m http.server
 ```
 ## leading zeros
 ```python
->f"{329:05d}"
+>>> f"{329:05d}"
 00329
 ```
 ## formatter
 ```python
 >>> f"Hey {name}, there's a {errno:#x} error!"
 "Hey Bob, there's a 0xbadc0ffee error!"
+>>> from string import Template
+>>> t = Template('Hey, $name!')
+>>> t.substitute(name=name)
+'Hey, Bob!'
 ```
 ## websocket client
 ```bash
