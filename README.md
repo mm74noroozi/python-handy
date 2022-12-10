@@ -71,9 +71,7 @@ while not q.empty():
 # (3, 'sleep')
 ```
 ## lambda function -> operator module
-```python
->>> import operator
->>> xs = {'a': 4, 'c': 2, 'b': 3, 'd': 1}
->>> sorted(xs.items(), key=operator.itemgetter(1))
-[('d', 1), ('c', 2), ('b', 3), ('a', 4)]
+```
+lambda x:x[1] -> operator.itemgetter(1)
+lambda x,y:x+y -> operator.add
 ```
