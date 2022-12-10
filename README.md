@@ -88,7 +88,7 @@ lambda x,y:x+y -> operator.add
 -2263522201675412136
 ```
 ## args and kwargs
-``python 
+```python 
 >>> a = [1,2,3]
 >>> b = [4,5]
 >>> print([*a,*b])
