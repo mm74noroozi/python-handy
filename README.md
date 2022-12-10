@@ -98,3 +98,24 @@ lambda x,y:x+y -> operator.add
 >>> print({**dict1,**dict2}
 {'a': 1, 'b': 2, 'c': 0}
 ```
+## advance disassamble 
+```python
+>>> def greet(name):
+>>>   return 'Hello, ' + name + '!'
+
+>>> greet.__code__.co_code
+b'dx01|x00x17x00dx02x17x00Sx00'
+>>> greet.__code__.co_consts
+(None, 'Hello, ', '!')
+>>> greet.__code__.co_varnames
+('name',)
+
+>>> import dis
+>>> dis.dis(greet)
+2 0 LOAD_CONST 1 ('Hello, ')
+2 LOAD_FAST 0 (name)
+4 BINARY_ADD
+6 LOAD_CONST 2 ('!')
+8 BINARY_ADD
+10 RETURN_VALUE
+```
