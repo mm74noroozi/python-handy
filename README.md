@@ -119,3 +119,12 @@ b'dx01|x00x17x00dx02x17x00Sx00'
 8 BINARY_ADD
 10 RETURN_VALUE
 ```
+## bitwise operations on datatypes
+```python
+>>> x = 3
+>>> y = 4
+>>> x or y
+3
+>>> x and y
+4
+```
