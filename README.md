@@ -150,4 +150,11 @@ b'dx01|x00x17x00dx02x17x00Sx00'
 # Disjoint check
 {1, 2}.isdisjoint({3, 4}) # True
 {1, 2}.isdisjoint({1, 4}) # False
+# Add and Remove
+s = {1,2,3}
+s.add(4) # s == {1,2,3,4}
+s.discard(3) # s == {1,2,4}
+s.discard(5) # s == {1,2,4}
+s.remove(2) # s == {1,4}
+s.remove(2) # KeyError!
 ```
