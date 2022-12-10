@@ -72,6 +72,7 @@ while not q.empty():
 ```
 ## lambda function -> operator module
 ```
+import operator
 lambda x:x[1] -> operator.itemgetter(1)
 lambda x,y:x+y -> operator.add
 ```
