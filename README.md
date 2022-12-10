@@ -87,3 +87,14 @@ lambda x,y:x+y -> operator.add
 >>> hash('salam0')
 -2263522201675412136
 ```
+## args and kwargs
+``python 
+>>> a = [1,2,3]
+>>> b = [4,5]
+>>> print([*a,*b])
+[1, 2, 3, 4, 5]
+>>> dict1 = {'a':1,'b':2}
+>>> dict2 = {'c':0}
+>>> print({**dict1,**dict2}
+{'a': 1, 'b': 2, 'c': 0}
+```
