@@ -76,3 +76,14 @@ import operator
 lambda x:x[1] -> operator.itemgetter(1)
 lambda x,y:x+y -> operator.add
 ```
+## interesting hash!
+```python
+>>> hash(987)
+987
+>>> hash(True)
+1
+>>> hash('salam')
+1248647572205467951
+>>> hash('salam0')
+-2263522201675412136
+```
