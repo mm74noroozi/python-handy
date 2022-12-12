@@ -194,3 +194,8 @@ portfolio = [
 cheap = heapq.nsmallest(3, portfolio, key=lambda s: s['price'])
 expensive = heapq.nlargest(3, portfolio, key=lambda s: s['price'])
 ```
+## defaultdict
+```python
+from collections import defaultdict
+d = defaultdict(list)
+```
