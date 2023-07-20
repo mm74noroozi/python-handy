@@ -303,5 +303,59 @@ False
 >>> re.findall('python', text, flags=re.IGNORECASE)
 >>> re.sub('python', 'snake', text, flags=re.IGNORECASE)
 ```
-## 
+In regular expressions (regex), the .* pattern matches any character (except for a newline character) zero or more times.
 
+Here's a breakdown of what .* means:
+
+    . matches any single character except for a newline character.
+    * matches the preceding character or group zero or more times.
+
+So, .* matches any sequence of characters, including an empty string. For example, the regex pattern a.*b would match any string that starts with an "a", ends with a "b", and has any characters in between.
+
+Note that .* is a greedy pattern, which means it will match as much as possible. If you want to match as little as possible, you can use the non-greedy version .*?
+```python
+>>> str_pat = re.compile(r'\"(.*)\"')
+>>> text2 = 'Computer says "no." Phone says "yes."'
+>>> str_pat.findall(text2)
+['no." Phone says "yes.']
+>>> >>> str_pat = re.compile(r'\"(.*?)\"')
+>>> str_pat.findall(text2)
+['no.', 'yes.']
+```
+multiline match
+```python
+>>> comment = re.compile(r'/\*(.*?)\*/')
+>>> text2 = '''/* this is a
+    ... multiline comment */
+    ... '''
+>>> comment.findall(text2)
+[]
+>>> comment = re.compile(r'/\*((?:.|\n)*?)\*/')
+>>> comment.findall(text2)
+[' this is a\n multiline comment ']
+>>> comment = re.compile(r'/\*(.*?)\*/', re.DOTALL)
+>>> comment.findall(text2)
+[' this is a\n multiline comment ']
+```
+## translate
+```python
+>>> s = 'pýtĥöñ\fis\tawesome\r\n'
+>>> s
+'pýtĥöñ\x0cis\tawesome\r\n'
+>>> remap = {
+... ord('\t') : ' ',
+... ord('\f') : ' ',
+... ord('\r') : None # Deleted
+... }
+>>> a = s.translate(remap)
+>>> a
+'pýtĥöñ is awesome\n'
+```
+## text centering
+```python
+>>> text = 'Hello World'
+>>> text.center(20,'*')
+'****Hello World*****'
+>>> format(text, '*^20s')
+'****Hello World*****'
+```
