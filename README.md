@@ -359,3 +359,39 @@ multiline match
 >>> format(text, '*^20s')
 '****Hello World*****'
 ```
+## vars vs locals
+```python
+class Example:
+    def __init__(self):
+        self.x = 1
+        self.y = 2
+
+ex = Example()
+print(vars(ex))  # {'x': 1, 'y': 2}
+def example_func():
+    a = 1
+    b = 2
+    print(locals()) # {'a': 1, 'b': 2}
+
+example_func()
+```
+## format_map
+```python
+>>> class Info:
+... def __init__(self, name, n):
+... self.name = name
+... self.n = n
+...
+>>> a = Info('Guido',37)
+>>> s.format_map(vars(a))
+'Guido has 37 messages.'
+```
+## __missing__
+```python
+class safesub(dict):
+  def __missing__(self, key):
+  return '{' + key + '}'
+>>> del n # Make sure n is undefined
+>>> s.format_map(safesub(vars()))
+'Guido has {n} messages.'
+```
