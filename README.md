@@ -164,6 +164,27 @@ s.remove(2) # KeyError!
 >>> counterA = Counter(['a','b','b','c'])
 >>> counterA
 Counter({'b': 2, 'a': 1, 'c': 1})
+>>> counterA.most_common(1)
+[('b',2)]
+>>> a = Counter(words)
+>>> b = Counter(morewords)
+>>> a
+Counter({'eyes': 8, 'the': 5, 'look': 4, 'into': 3, 'my': 3, 'around': 2,
+ "you're": 1, "don't": 1, 'under': 1, 'not': 1})
+>>> b
+Counter({'eyes': 1, 'looking': 1, 'are': 1, 'in': 1, 'not': 1, 'you': 1,
+ 'my': 1, 'why': 1})
+>>> # Combine counts
+>>> c = a + b
+>>> c
+Counter({'eyes': 9, 'the': 5, 'look': 4, 'my': 4, 'into': 3, 'not': 2,
+ 'around': 2, "you're": 1, "don't": 1, 'in': 1, 'why': 1,
+ 'looking': 1, 'are': 1, 'under': 1, 'you': 1})
+>>> # Subtract counts
+>>> d = a - b
+>>> d
+Counter({'eyes': 7, 'the': 5, 'look': 4, 'into': 3, 'my': 2, 'around': 2,
+ "you're": 1, "don't": 1, 'under': 1})
 ```
 ## max length queue
 ```python
@@ -197,5 +218,90 @@ expensive = heapq.nlargest(3, portfolio, key=lambda s: s['price'])
 ## defaultdict
 ```python
 from collections import defaultdict
-d = defaultdict(list)
+
+d = defaultdict(lambda :2)
+d[1] # 2
 ```
+## slice
+```
+record = '....................100 .......513.25 ..........'
+SHARES = slice(20,32)
+PRICE = slice(40,48)
+cost = int(record[SHARES]) * float(record[PRICE])
+```
+## filtering based on other sequence
+```
+addresses = [
+ '5412 N CLARK',
+ '5148 N CLARK',
+ '5800 E 58TH',
+ '2122 N CLARK'
+ '5645 N RAVENSWOOD',
+ '1060 W ADDISON',
+ '4801 N BROADWAY',
+ '1039 W GRANVILLE',
+]
+counts = [ 0, 3, 10, 4, 1, 7, 6, 1]
+
+>>> from itertools import compress
+>>> more5 = [n > 5 for n in counts]
+>>> more5
+[False, False, True, False, False, True, True, False]
+>>> list(compress(addresses, more5))
+['5800 E 58TH', '4801 N BROADWAY', '1039 W GRANVILLE']
+```
+## combine dicts
+```
+from collections import ChainMap
+a = {'x': 1, 'z': 3 }
+b = {'y': 2, 'z': 4 }
+c = ChainMap(a,b)
+print(c['x']) # Outputs 1 (from a)
+print(c['y']) # Outputs 2 (from b)
+print(c['z']) # Outputs 3 (from a)
+```
+## fnmatch
+```
+>>> from fnmatch import fnmatch, fnmatchcase
+>>> fnmatch('foo.txt', '*.txt')
+True
+>>> fnmatch('foo.txt', '?oo.txt')
+True
+>>> fnmatch('Dat45.csv', 'Dat[0-9]*')
+True
+>>> # On OS X (Mac)
+>>> fnmatch('foo.txt', '*.TXT')
+False
+>>> # On Windows
+>>> fnmatch('foo.txt', '*.TXT')
+True
+>>> fnmatchcase('foo.txt', '*.TXT')
+False
+```
+## regex
+```
+>>> import re
+>>> datepat = re.compile(r'\d+/\d+/\d+')
+>>> text = 'Today is 11/27/2012. PyCon starts 3/13/2013.'
+>>> datepat.findall(text)
+['11/27/2012', '3/13/2013']
+>>> datepat = re.compile(r'(\d+)/(\d+)/(\d+)')
+>>> datepat.findall(text)
+[('11', '27', '2012'), ('3', '13', '2013')]
+>>> m =  datepat.match('11/27/2012') # only first item
+>>> for m in datepat.finditer(text):
+    ... print(m.groups()) # 11/27/2022 ...
+    ... print(m.group())  # ('11', '27', '2012')
+>>> text = 'Today is 11/27/2012. PyCon starts 3/13/2013.'
+>>> re.sub(r'(\d+)/(\d+)/(\d+)', r'\3-\1-\2', text)
+'Today is 2012-11-27. PyCon starts 2013-3-13.'
+>>> newtext, n = datepat.subn(r'\3-\1-\2', text)
+>>> newtext
+'Today is 2012-11-27. PyCon starts 2013-3-13.'
+>>> n
+2
+>>> re.findall('python', text, flags=re.IGNORECASE)
+>>> re.sub('python', 'snake', text, flags=re.IGNORECASE)
+```
+## 
+
