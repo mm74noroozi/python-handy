@@ -223,14 +223,14 @@ d = defaultdict(lambda :2)
 d[1] # 2
 ```
 ## slice
-```
+```python
 record = '....................100 .......513.25 ..........'
 SHARES = slice(20,32)
 PRICE = slice(40,48)
 cost = int(record[SHARES]) * float(record[PRICE])
 ```
 ## filtering based on other sequence
-```
+```python
 addresses = [
  '5412 N CLARK',
  '5148 N CLARK',
@@ -251,7 +251,7 @@ counts = [ 0, 3, 10, 4, 1, 7, 6, 1]
 ['5800 E 58TH', '4801 N BROADWAY', '1039 W GRANVILLE']
 ```
 ## combine dicts
-```
+```python
 from collections import ChainMap
 a = {'x': 1, 'z': 3 }
 b = {'y': 2, 'z': 4 }
@@ -261,7 +261,7 @@ print(c['y']) # Outputs 2 (from b)
 print(c['z']) # Outputs 3 (from a)
 ```
 ## fnmatch
-```
+```python
 >>> from fnmatch import fnmatch, fnmatchcase
 >>> fnmatch('foo.txt', '*.txt')
 True
@@ -279,7 +279,7 @@ True
 False
 ```
 ## regex
-```
+```python
 >>> import re
 >>> datepat = re.compile(r'\d+/\d+/\d+')
 >>> text = 'Today is 11/27/2012. PyCon starts 3/13/2013.'
