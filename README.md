@@ -170,6 +170,11 @@ s.discard(5) # s == {1,2,4}
 s.remove(2) # s == {1,4}
 s.remove(2) # KeyError!
 ```
+math operands
+- | ~ union
+- & ~ intersection
+- - ~ difference
+- ^ ~ Symmetric difference with
 ## Counter
 ```python
 >>> from collections import Counter
