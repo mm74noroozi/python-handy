@@ -40,6 +40,18 @@ queue.Empty
 >>> s.get()
 # Blocks / waits forever...
 ```
+## Heap
+```python
+import heapq
+
+myHeap = [3, 1, 5]
+
+heapq.heapify(myHeap) # make a heap with elements of (myHeap = [3, 1, 5]) and store it in myHeap
+heapq.heappush(myHeap, -5) # add -5 to myHeap
+minElement =  heapq.heappop(myHeap)  # pop min element in myHeap and return value of min elemnt
+
+print(minElement) # print -5
+```
 ## FIFO
 ```python
 >>> from multiprocessing import Queue
