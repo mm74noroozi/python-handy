@@ -35,7 +35,7 @@ https://www.mockaroo.com/
     >>> User.objects.aggregate(average_score=Avg('score'))
     {'average_score': 9.8}
 ```
-#### aggregation vs annotate
+#### aggregation vs annotation
 ```ipython
 >>> from django.db.models import FloatField
 >>> Book.objects.aggregate(
