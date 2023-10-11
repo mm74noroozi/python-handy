@@ -35,6 +35,25 @@ https://www.mockaroo.com/
     >>> User.objects.aggregate(average_score=Avg('score'))
     {'average_score': 9.8}
 ```
+#### aggregation vs annotate
+```ipython
+>>> from django.db.models import FloatField
+>>> Book.objects.aggregate(
+...     price_diff=Max("price", output_field=FloatField()) - Avg("price")
+... )
+{'price_diff': 46.85}
+
+# All the following queries involve traversing the Book<->Publisher
+# foreign key relationship backwards.
+
+# Each publisher, each with a count of books as a "num_books" attribute.
+>>> from django.db.models import Count
+>>> pubs = Publisher.objects.annotate(num_books=Count("book"))
+>>> pubs
+<QuerySet [<Publisher: BaloneyPress>, <Publisher: SalamiPress>, ...]>
+>>> pubs[0].num_books
+73
+```
 ### F objects [using for representing a column]
 ```ipython
     from django.db import models
