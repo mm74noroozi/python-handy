@@ -210,3 +210,16 @@ class UP_RUNNING(TestCase):
         res = self.client.get("/")
         self.assertEqual(res.status_code,200)
 ```
+# DRF tests
+## ViewSet Tests
+```python
+class ViewSetTest(TestCase):
+    def test_view_set(self):
+        factory = APIRequestFactory()
+        view = CatViewSet.as_view(actions={'get': 'retrieve'}) # <-- Changed line
+        cat = Cat(name="bob")
+        cat.save()
+
+        request = factory.get(reverse('cat-detail', args=(cat.pk,)))
+        response = view(request)
+```
