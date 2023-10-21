@@ -54,6 +54,15 @@ https://www.mockaroo.com/
 >>> pubs[0].num_books
 73
 ```
+## Coalesce
+return first not null value
+```python
+>>> from django.db.models.functions import Coalesce
+>>> Author.objects.create(name="Margaret Smith", goes_by="Maggie")
+>>> author = Author.objects.annotate(screen_name=Coalesce("alias", "goes_by", "name")).get()
+>>> print(author.screen_name)
+Maggie
+```
 ### F objects [using for representing a column]
 ```ipython
     from django.db import models
