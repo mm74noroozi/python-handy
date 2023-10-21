@@ -458,4 +458,15 @@ inf
 >>> c
 nan
 ```
+## docstring and annotations
+```python
+>>> def locate(latitude: float, longitude: float) -> Point:
+    ... """Find an object in the map by its coordinates"""
+    ... pass
+>>> locate.__doc__ # or help(locate)
+ 'Find an object in the map by its coordinates'
+>>> locate.__annotations__
+{'latitude': <class 'float'>, 'longitude': <class 'float'>, 'return': 
+<class 'Point'>
+```
 
