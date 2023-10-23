@@ -18,3 +18,5 @@ consumer = KafkaConsumer('quickstart',auto_offset_reset="earliest",bootstrap_ser
 for msg in consumer:
     print(msg)
 ```
+## notes
+- maximum size of a message Kafka: 1MB 
