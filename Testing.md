@@ -10,8 +10,8 @@
 or hook function, and not during the execution of a test function
 ### pytest.fail
 equals assert False
-### \__tracebackhide\__
-\__tracebackhide\__ = True hides the details on `lower` modules
+### \_\_tracebackhide\_\_
+\_\_tracebackhide\_\_ = True hides the details on `lower` modules
 ### testing on error message!
 ```python
 def test_raises_with_info():
