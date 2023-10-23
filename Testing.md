@@ -34,4 +34,22 @@ This is the default scope used when no scope parameter is specified.
 - `scope='package'` : Run once per package, or test directory
 - `scope='session'` : Run once per session. All test methods and functions using a fixture of
 session scope share one setup and teardown call.
-
+#### dynamic scope
+```python
+# /path/to/conftest.py
+@pytest.fixture(scope=db_scope)
+def db():
+  """CardsDB object connected to a temporary database"""
+  with TemporaryDirectory() as db_dir:
+    db_path = Path(db_dir)
+    db_ = cards.CardsDB(db_path)
+    yield db_
+    db_.close()
+```
+```python
+# /path/to/conftest.py
+def db_scope(fixture_name, config):
+  if config.getoption("--func-db", None):
+    return "function"
+  return "session"
+```
