@@ -53,3 +53,16 @@ def db_scope(fixture_name, config):
     return "function"
   return "session"
 ```
+```python
+# /path/to/conftest.py
+def pytest_addoption(parser):
+  parser.addoption(
+  "--func-db",
+  action="store_true",
+  default=False,
+  help="new db for each test",
+  )
+```
+```bash
+pytest --func-db --setup-show test_count.py
+```
