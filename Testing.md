@@ -25,3 +25,13 @@ def test_raises_with_info_alt():
   expected = "missing 1 required positional argument"
   assert expected in str(exc_info.value)
 ```
+### Scopes
+- `scope='function'` : Run once per test function. The setup portion is run before each test using
+the fixture. The teardown portion is run after each test using the fixture.
+This is the default scope used when no scope parameter is specified.
+- `scope='class'` : Run once per test class
+- `scope='module'` : Run once per module
+- `scope='package'` : Run once per package, or test directory
+- `scope='session'` : Run once per session. All test methods and functions using a fixture of
+session scope share one setup and teardown call.
+
