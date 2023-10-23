@@ -19,4 +19,5 @@ for msg in consumer:
     print(msg)
 ```
 ## notes
-- maximum size of a message Kafka: 1MB 
+- the maximum size of a message Kafka: 1MB
+- unbalanced cluster: add new brokers to an existing Kafka cluster. However, these brokers will not be allocated any data partitions from the cluster's existing topics, so they won't be performing much work unless the partitions are moved or new topics are formed. A cluster is referred to as an unbalanced
