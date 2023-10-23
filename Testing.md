@@ -8,3 +8,5 @@
 - XPASS: The test was marked with xfail, but it ran and passed
 - ERROR: An exception happened either during the execution of a fixture
 or hook function, and not during the execution of a test function
+### pytest.fail
+equals assert False
