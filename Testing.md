@@ -101,6 +101,7 @@ def test_2():
   time.sleep(1.23)
 ```
 ### parameterize fixtures
+```python
 import pytest 
 from cards import Card
 
