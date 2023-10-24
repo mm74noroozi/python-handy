@@ -130,3 +130,7 @@ def test_finish(cards_db, start_state):
     card = cards_db.get_card(index)
     assert card.state == "done"
 ```
+### why pytest.mark.skip ?
+Ex. : skip backward compatibilities 
+@pytest.mark.skip(reason="Card doesn't support < comparison yet")
+
