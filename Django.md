@@ -257,3 +257,14 @@ django doesn't enforce (by default) csrf checking with tests. to enforce csrftok
 from django.test import Client
 csrf_client = Client(enforce_csrf_checks=True)
 ```
+## ModelForm
+```python
+from django import forms
+from .models import User
+
+class SignUpForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'email',)
+```
