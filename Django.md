@@ -251,3 +251,9 @@ class ViewSetTest(TestCase):
         request = factory.get(reverse('cat-detail', args=(cat.pk,)))
         response = view(request)
 ```
+## CSRF in test?
+django doesn't enforce (by default) csrf checking with tests. to enforce csrftoken check:
+```python
+from django.test import Client
+csrf_client = Client(enforce_csrf_checks=True)
+```
