@@ -150,5 +150,7 @@ def test_less_than():
 ## unittest
 ### tox
 tox is used to test on multiple environments
+### type of assert
+assertAlmostEqual: check the floating point 
 
 
