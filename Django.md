@@ -268,3 +268,11 @@ class SignUpForm(forms.ModelForm):
         model = User
         fields = ('username', 'email',)
 ```
+## Generic Views
+```python
+from django.views.generic import DetailView
+
+
+class BookDetailView(DetailView):
+    queryset = Book.objects.filter(is_published=True)
+```
