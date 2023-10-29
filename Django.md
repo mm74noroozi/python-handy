@@ -10,9 +10,11 @@ Need some mock data to test your app? Mockaroo lets you generate up to 1,000 row
 with alot of!!! data types first name lastname ....
 https://www.mockaroo.com/
 ## Django create bash profile
-    python manage.py shell -i ipython
+```bash
+python manage.py shell -i ipython
+```
 ## Django queryset hacks
-```ipython
+```python
 >>> Article.objects.all().values("title")
 [{'title': 'Article 0'}, {'title': 'Article 1'}, {'title': 'Article 2'}]
     
@@ -28,7 +30,7 @@ https://www.mockaroo.com/
 - startswith , istartswith , endswith , iendswith
 - in
 ### aggregations
-```ipython
+```python
     >>> from django.db.models import Avg, Sum, Max, Min
     >>> User.objects.aggregate(Avg('score'))
     {'score__avg': 9.8}
@@ -36,7 +38,7 @@ https://www.mockaroo.com/
     {'average_score': 9.8}
 ```
 #### aggregation vs annotation
-```ipython
+```python
 >>> from django.db.models import FloatField
 >>> Book.objects.aggregate(
 ...     price_diff=Max("price", output_field=FloatField()) - Avg("price")
