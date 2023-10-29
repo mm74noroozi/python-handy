@@ -64,32 +64,32 @@ return first not null value
 Maggie
 ```
 ### F objects [using for representing a column]
-```ipython
-    from django.db import models
+```python
+from django.db import models
 
-    class Student(models.Model):
-        name = models.CharField(max_length=10)
-        math_score = models.IntegerField()
-        physics_score = models.IntegerField()
+class Student(models.Model):
+    name = models.CharField(max_length=10)
+    math_score = models.IntegerField()
+    physics_score = models.IntegerField()
     
-    >>> from django.db.models import F
-    >>> physics_score = F('physics_score')
-    >>> Student.objects.filter(math_score__gt=physics_score)
-    <QuerySet [...]>
-    >>> Student.objects.filter(math_score__gt=F('physics_score')*2)
-    <QuerySet [...]>
+>>> from django.db.models import F
+>>> physics_score = F('physics_score')
+>>> Student.objects.filter(math_score__gt=physics_score)
+<QuerySet [...]>
+>>> Student.objects.filter(math_score__gt=F('physics_score')*2)
+<QuerySet [...]>
 ```
 ### Q objects [using for logical operations in query]
-```ipython
-    >>> conditions = Q(math_score__gte=10) | Q(physics_score__gte=10)
-    >>> Student.objects.filter(conditions)
-    <QuerySet [...]>
+```python
+>>> conditions = Q(math_score__gte=10) | Q(physics_score__gte=10)
+>>> Student.objects.filter(conditions)
+<QuerySet [...]>
+```
 - & : and
 - | : or
 - ~ : not
-```
 #### equivalent queries
-```ipython
+```python
     >>> Student.objects.exclude(math_score__in=[10, 13])
     <QuerySet [...]>
     >>> Student.objects.filter(~Q(math_score=10) & ~Q(math_score=13))
@@ -98,7 +98,7 @@ Maggie
     <QuerySet [...]>
 ```
 ## Django Manager
-```ipython
+```python
     class Mobile(models.Model):
         price = models.PositiveIntegerField(default=1000)
         mobiles = models.Manager()
