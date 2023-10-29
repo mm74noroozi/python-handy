@@ -276,3 +276,17 @@ from django.views.generic import DetailView
 class BookDetailView(DetailView):
     queryset = Book.objects.filter(is_published=True)
 ```
+## Django rest framework
+### api_view
+```python
+@api_view(['POST'])
+def create_product(request):
+    product = Product.objects.create(name=request.data['name'], price=request.data['price'])
+    return Response({
+        "message": "new product added successfully",
+        "product": {
+            "name": product.name,
+            "price": product.price
+        }
+    }, status=status.HTTP_201_CREATED)
+```
