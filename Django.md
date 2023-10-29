@@ -290,3 +290,16 @@ def create_product(request):
         }
     }, status=status.HTTP_201_CREATED)
 ```
+### APIView
+```python
+
+class AddCarAPIView(APIView):
+    def post(self, request):
+        car_serializer = CarSerializer(data=request.data)
+        if car_serializer.is_valid():
+            car_serializer.save()
+            return Response({'message': 'Car added successfully!'})
+
+        return Response({'message': car_serializer.errors})
+```
+
