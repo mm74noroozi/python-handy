@@ -31,11 +31,11 @@ python manage.py shell -i ipython
 - in
 ### aggregations
 ```python
-    >>> from django.db.models import Avg, Sum, Max, Min
-    >>> User.objects.aggregate(Avg('score'))
-    {'score__avg': 9.8}
-    >>> User.objects.aggregate(average_score=Avg('score'))
-    {'average_score': 9.8}
+>>> from django.db.models import Avg, Sum, Max, Min
+>>> User.objects.aggregate(Avg('score'))
+{'score__avg': 9.8}
+>>> User.objects.aggregate(average_score=Avg('score'))
+{'average_score': 9.8}
 ```
 #### aggregation vs annotation
 ```python
