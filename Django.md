@@ -229,7 +229,8 @@ class UserAdminExtended(UserAdmin):
 ```python
 AUTH_USER_MODEL = 'user_data.User'
 ```
-# Unit testing + upchecking
+## Unit testing
+### upchecking
 some_app/tests.py
 ```python
 from django.test import TestCase
@@ -240,24 +241,26 @@ class UP_RUNNING(TestCase):
         res = self.client.get("/")
         self.assertEqual(res.status_code,200)
 ```
-# DRF tests
-## ViewSet Tests
+### CSRF in test?
 ```python
-class ViewSetTest(TestCase):
-    def test_view_set(self):
-        factory = APIRequestFactory()
-        view = CatViewSet.as_view(actions={'get': 'retrieve'}) # <-- Changed line
-        cat = Cat(name="bob")
-        cat.save()
-
-        request = factory.get(reverse('cat-detail', args=(cat.pk,)))
-        response = view(request)
-```
-## CSRF in test?
 django doesn't enforce (by default) csrf checking with tests. to enforce csrftoken check:
 ```python
 from django.test import Client
 csrf_client = Client(enforce_csrf_checks=True)
+```
+###
+### SetUp and tearsDown
+```python
+import unittest
+
+class TestClass(unittest.TestCase):
+    @classmethod
+    def setUpSth(cls):
+        cls._connection = createExpensiveConnectionObject()
+
+    @classmethod
+    def tearDownSth(cls):
+        cls._connection.destroy()
 ```
 ## ModelForm
 ```python
@@ -370,6 +373,25 @@ class HelloAPIView(GenericAPIView):
 - IsAuthenticatedOrReadOnly: Authenticated or GET OPTIONS HEAD methods
 - AllowAny
 - DjangoModelPermissions
+#### DjangoModelPermissions
+```python
+class UserListAPIView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.DjangoModelPermissions,)
+```
+```python
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissions'
+    ]
+}
+```
+#### BasePermission
 ```python
 from rest_framework.permissions import BasePermission
 
@@ -383,4 +405,17 @@ class Blacklisted(BasePermission):
         in_blacklist = Blacklist.objects.filter(ip=ip_address).exists()
 
         return not in_blacklist
+```
+### tests
+#### ViewSet Tests
+```python
+class ViewSetTest(TestCase):
+    def test_view_set(self):
+        factory = APIRequestFactory()
+        view = CatViewSet.as_view(actions={'get': 'retrieve'}) # <-- Changed line
+        cat = Cat(name="bob")
+        cat.save()
+
+        request = factory.get(reverse('cat-detail', args=(cat.pk,)))
+        response = view(request)
 ```
