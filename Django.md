@@ -419,3 +419,4 @@ class ViewSetTest(TestCase):
         request = factory.get(reverse('cat-detail', args=(cat.pk,)))
         response = view(request)
 ```
+
