@@ -276,6 +276,17 @@ from django.views.generic import DetailView
 class BookDetailView(DetailView):
     queryset = Book.objects.filter(is_published=True)
 ```
+## Custom Permission on model
+```python
+class Task(models.Model):
+    ...
+
+    class Meta:
+        permissions = [
+            ("change_task_status", "Can change the status of tasks"),
+            ("close_task", "Can remove a task by setting its status as closed"),
+        ]
+```
 ## Django rest framework
 ### api_view
 ```python
@@ -350,4 +361,24 @@ class HelloAPIView(GenericAPIView):
 
     def get(self, request):
         return Response(data={'message': f"Hello {request.user.username}!"})
+```
+### Permission class
+- IsAdminUser
+- IsAuthenticated
+- IsAuthenticatedOrReadOnly: Authenticated or GET OPTIONS HEAD methods
+- AllowAny
+- DjangoModelPermissions
+```python
+from rest_framework.permissions import BasePermission
+
+from security.models import Blacklist
+
+
+class Blacklisted(BasePermission):
+
+    def has_permission(self, request, view):
+        ip_address = request.META['REMOTE_ADDR']
+        in_blacklist = Blacklist.objects.filter(ip=ip_address).exists()
+
+        return not in_blacklist
 ```
