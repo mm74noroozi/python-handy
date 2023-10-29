@@ -90,28 +90,28 @@ class Student(models.Model):
 - ~ : not
 #### equivalent queries
 ```python
-    >>> Student.objects.exclude(math_score__in=[10, 13])
-    <QuerySet [...]>
-    >>> Student.objects.filter(~Q(math_score=10) & ~Q(math_score=13))
-    <QuerySet [...]>
-    >>> Student.objects.exclude(math_score=10).exclude(math_score=13)
-    <QuerySet [...]>
+>>> Student.objects.exclude(math_score__in=[10, 13])
+<QuerySet [...]>
+>>> Student.objects.filter(~Q(math_score=10) & ~Q(math_score=13))
+<QuerySet [...]>
+>>> Student.objects.exclude(math_score=10).exclude(math_score=13)
+<QuerySet [...]>
 ```
 ## Django Manager
 ```python
-    class Mobile(models.Model):
-        price = models.PositiveIntegerField(default=1000)
-        mobiles = models.Manager()
+class Mobile(models.Model):
+    price = models.PositiveIntegerField(default=1000)
+    mobiles = models.Manager()
 
-    >>> Mobile.mobiles.all()
-    <QuerySet [<Mobile: some_mobile>, ...]>
+>>> Mobile.mobiles.all()
+<QuerySet [<Mobile: some_mobile>, ...]>
 
-    >>> Mobile.objects.all()
-    ...
-    AttributeError: type object 'Mobile' has no attribute 'objects'
+>>> Mobile.objects.all()
+...
+AttributeError: type object 'Mobile' has no attribute 'objects'
     
     
-    class MobileManager(models.Manager):
+class MobileManager(models.Manager):
     def most_popular_mobiles(self):
         return self.filter(
             condition1=..., 
@@ -122,9 +122,9 @@ class Student(models.Model):
             ...
         )
 
-    class Mobile(models.Model):
-        price = models.PositiveIntegerField(default=1000)
-        objects = MobileManager()
+class Mobile(models.Model):
+    price = models.PositiveIntegerField(default=1000)
+    objects = MobileManager()
 ```
 ## Django filter
 ```python
