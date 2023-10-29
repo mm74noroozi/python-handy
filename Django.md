@@ -292,6 +292,11 @@ class Task(models.Model):
             ("close_task", "Can remove a task by setting its status as closed"),
         ]
 ```
+### Middlewares
+- CommonMiddleware:  APPEND_SLASH , PREPEND_WWW
+- SecurityMiddleware: HSTS , ... https://docs.djangoproject.com/en/3.1/ref/middleware/#module-django.middleware.security
+- SessionMiddleware: https://docs.djangoproject.com/en/3.1/topics/http/sessions/
+- CsrfViewMIddleware: handle csrftoken
 ## Django rest framework
 ### api_view
 ```python
