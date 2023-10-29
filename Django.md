@@ -327,4 +327,27 @@ class CarSerializer(serializers.ModelSerializer):
 
         return value
 ```
+### GET Simple Token
+```python
+from django.urls import path
 
+from rest_framework.authtoken.views import obtain_auth_token
+
+urlpatterns = [
+    # Other urls
+    path('login/', view=obtain_auth_token),
+]
+```
+### GenericAPIView
+```python
+from rest_framework.response import Response
+from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
+
+
+class HelloAPIView(GenericAPIView):
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        return Response(data={'message': f"Hello {request.user.username}!"})
+```
