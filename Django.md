@@ -302,4 +302,29 @@ class AddCarAPIView(APIView):
 
         return Response({'message': car_serializer.errors})
 ```
+### ModelSerializer
+```python
+from rest_framework import serializers
+
+from .models import Car
+
+
+class CarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Car
+        fields = ('name', 'minimum_price', 'maximum_price', 'country')
+
+    def validate(self, data):
+        if data.get('minimum_price', 0) > data.get('maximum_price', 0):
+            error = 'Maximum should be greater than minimum'
+            raise serializers.ValidationError(error)
+
+        return data
+
+    def validate_minimum_price(self ,value):
+        if value < 0 :
+            raise serializers.ValidationError('Minimum price must be postive')
+
+        return value
+```
 
