@@ -469,4 +469,11 @@ nan
 {'latitude': <class 'float'>, 'longitude': <class 'float'>, 'return': 
 <class 'Point'>
 ```
+## memory management 
+### sys
+```python
+import sys
+a = "hello"
+sys.getrefcount(a) # equals 2
+```
 
