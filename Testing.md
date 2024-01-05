@@ -151,6 +151,75 @@ def test_less_than():
 ### tox
 tox is used to test on multiple environments
 ### type of assert
-assertAlmostEqual: check the floating point 
+assertAlmostEqual: check the floating point
 
+## mock
+Here are some scenarios where mocking is commonly used in testing:
+
+External Dependencies: When a unit of code interacts with external systems such as databases, web services, or third-party libraries, mocking can be used to simulate these interactions. This ensures that tests run quickly and consistently without relying on external resources.
+
+Complex Collaborators: In object-oriented programming, objects often collaborate with each other to perform tasks. Mocking can be used to isolate the behavior of one object from its collaborators, making it easier to test the object's functionality in isolation.
+
+State Verification: Mock objects can be configured to verify that certain methods are called with specific parameters or in a particular sequence. This allows developers to assert that the code under test interacts with its dependencies correctly.
+
+Behavior Simulation: Mocking frameworks allow developers to define the behavior of mock objects, such as returning specific values or throwing exceptions when certain methods are called. This makes it possible to simulate different scenarios and edge cases during testing.
+
+Performance Testing: In some cases, mocking can be used to simulate the behavior of high-latency or resource-intensive components, allowing developers to test how the system behaves under different performance conditions.
+Here's a Python code snippet demonstrating this:
+```python
+# external_service.py
+import requests
+
+def get_data_from_external_service(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+```
+Now, let's write a test for the get_data_from_external_service function using mocking to simulate the external API call:
+```python
+# test_external_service.py
+import unittest
+from unittest.mock import patch, Mock
+from external_service import get_data_from_external_service
+
+class TestExternalService(unittest.TestCase):
+
+    @patch('external_service.requests.get')  # Mock the requests.get method
+    def test_get_data_from_external_service_success(self, mock_get):
+        # Prepare the mock response
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {'key': 'value'}
+        
+        # Configure the mock object to return the mock response
+        mock_get.return_value = mock_response
+        
+        # Call the function under test
+        result = get_data_from_external_service('http://example.com/api/data')
+        
+        # Assertions
+        self.assertEqual(result, {'key': 'value'})
+        mock_get.assert_called_once_with('http://example.com/api/data')
+
+    @patch('external_service.requests.get')
+    def test_get_data_from_external_service_failure(self, mock_get):
+        # Prepare the mock response
+        mock_response = Mock()
+        mock_response.status_code = 404  # Simulate a failure status code
+        
+        # Configure the mock object to return the mock response
+        mock_get.return_value = mock_response
+        
+        # Call the function under test
+        result = get_data_from_external_service('http://example.com/api/data')
+        
+        # Assertions
+        self.assertIsNone(result)
+        mock_get.assert_called_once_with('http://example.com/api/data')
+
+if __name__ == '__main__':
+    unittest.main()
+```
 
